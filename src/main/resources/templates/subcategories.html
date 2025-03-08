@@ -1,0 +1,38 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subcategories - e-Dastavej</title>
+    <link rel="stylesheet" href="/built/bundle.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Subcategories</h2>
+        <a href="/subcategories/new" class="btn btn-primary">Add New Subcategory</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="subcategory : ${subcategories}">
+                    <td th:text="${subcategory.id}"></td>
+                    <td th:text="${subcategory.name}"></td>
+                    <td th:text="${subcategory.category.name}"></td>
+                    <td>
+                        <a th:href="@{/subcategories/edit/{id}(id=${subcategory.id})}" class="btn btn-secondary">Edit</a>
+                        <a th:href="@{/subcategories/delete/{id}(id=${subcategory.id})}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="/built/bundle.js"></script>
+</body>
+</html>

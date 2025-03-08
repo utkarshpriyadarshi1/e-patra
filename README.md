@@ -1,86 +1,43 @@
 # e-Dastavej
 
+e-Dastavej is a document management system that allows users to upload, search, and manage documents securely. It incorporates OWASP Top 10 security standards to ensure that the application is secure against common vulnerabilities.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Technologies Used](#technologies-used)
+- [Deployment](#deployment)
+- [Security](#security)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Overview
-This project is a file management system built using Spring MVC. It allows users to upload, search, and manage files. The system supports different user roles like public, clerk, staff, assistant, etc.
 
-## Features
-- File upload
-- File search with filters
-- User and role management
-- Category and subcategory management
-- Admin dashboard
-
-## Documentation
-- [Installation Guide](docs/INSTALLATION.md)
-- [Usage Guide](docs/USAGE.md)
-- [Contributing Guide](docs/CONTRIBUTING.md)
-- [Security Guidelines](docs/SECURITY.md)
-
-### Project Documents
-- [Project Proposal](doc/Project_Proposal.md)
-- [Architecture Design](doc/Architecture_Design.md)
-- [Contract Agreement](doc/Contract_Agreement.md)
-- [Cost Estimation on AWS Hosting](doc/Cost_Estimation_on_AWS_Hosting.md)
-- [Design System](doc/Design_System.md)
-- [Project Plan](doc/Project_Plan.md)
-- [Requirements Document](doc/Requirements_Document.md)
-- [Statement of Work (SOW)](doc/Statement_of_Work_(SOW).md)
-- [Design Document](doc/Design_Document.md)
-- [Project Closure Document](doc/Project_Closure_Document.md)
+e-Dastavej is designed to provide a secure and user-friendly platform for managing documents. Users can upload, search, and view documents while ensuring that their data is protected against common security vulnerabilities.
 
 ## Technologies Used
-- Spring MVC
-- JSP
-- Hibernate
-- PostgreSQL
-- Spring Security
-- Bootstrap
-- Webpack
 
-## Getting Started
+- **Java**: The main programming language used for the backend.
+- **Spring Boot**: Framework used to build the backend application.
+- **Spring Security**: For authentication and authorization.
+- **Thymeleaf**: Template engine for rendering HTML views.
+- **Hibernate**: ORM framework used for database interactions.
+- **PostgreSQL**: Database used to store application data.
+- **Lombok**: Library used to reduce boilerplate code.
+- **Maven**: Build automation tool used to manage dependencies and build the project.
 
-### Prerequisites
-- JDK 11 or higher
-- Apache Maven
-- PostgreSQL
-- Node.js and npm
+## Deployment
 
-### Setup
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/e-Dastavej.git
-    cd e-Dastavej
-    ```
+For detailed deployment instructions, please refer to the [Deployment Guide](docs/DEPLOYMENT.md).
 
-2. Create a PostgreSQL database:
-    ```sql
-    CREATE DATABASE file_management;
-    ```
+## Security
 
-3. Update `application.properties` with your database configurations:
-    ```properties
-    spring.datasource.url=jdbc:postgresql://localhost:5432/file_management
-    spring.datasource.username=edastavej
-    spring.datasource.password=edastavej
-    spring.jpa.hibernate.ddl-auto=update
-    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-    spring.jpa.show-sql=true
-    ```
+This project follows OWASP Top 10 security standards. Detailed documentation can be found in the [Security Guide](docs/SECURITY.md).
 
-4. Install frontend dependencies and build:
-    ```bash
-    npm install
-    npx webpack --config webpack.config.js
-    ```
+## Contributing
 
-5. Build the project:
-    ```bash
-    mvn clean install
-    ```
-
-6. Deploy the WAR file to your favorite servlet container (e.g., Tomcat).
-
-7. Access the application at `http://localhost:8080/e-Dastavej`.
+Contributions are welcome! Please read the [Contributing Guide](docs/CONTRIBUTING.md) for guidelines on how to contribute to this project.
 
 ## License
-This project is licensed under the MIT License.
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

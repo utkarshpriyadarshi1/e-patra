@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Details - e-Dastavej</title>
+    <link rel="stylesheet" href="/built/bundle.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
+</head>
+<body>
+    <div class="container">
+        <h2>File Details</h2>
+        <div>
+            <strong>File Name:</strong> <span th:text="${file.fileName}"></span>
+        </div>
+        <div>
+            <strong>Description:</strong> <span th:text="${file.description}"></span>
+        </div>
+        <div>
+            <strong>Category:</strong> <span th:text="${file.category.name}"></span>
+        </div>
+        <div>
+            <strong>Sub Category:</strong> <span th:text="${file.subCategory.name}"></span>
+        </div>
+        <div>
+            <strong>Upload Date:</strong> <span th:text="${file.uploadDate}"></span>
+        </div>
+        <div>
+            <strong>File Type:</strong> <span th:text="${file.fileType}"></span>
+        </div>
+        <div>
+            <strong>File Size:</strong> <span th:text="${file.fileSize}"></span>
+        </div>
+        <div class="mt-4">
+            <a th:href="@{/files/open/{id}(id=${file.id})}" target="_blank" class="btn btn-info btn-sm">View</a>
+            <a th:href="@{/files/download/{id}(id=${file.id})}" class="btn btn-info btn-sm">Download</a>
+            <a href="/user/dashboard" class="btn btn-secondary btn-sm">Back to Dashboard</a>
+        </div>
+    </div>
+    <script src="/built/bundle.js"></script>
+</body>
+</html>

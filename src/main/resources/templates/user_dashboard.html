@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - e-Dastavej</title>
+    <link rel="stylesheet" href="/built/bundle.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
+</head>
+<body>
+    <div class="container">
+        <h2>User Dashboard</h2>
+        <p>Welcome to the User Dashboard!</p>
+        <a href="/user/logout" class="btn btn-secondary">Logout</a>
+
+        <h3>Recent Uploaded Files</h3>
+        <ul>
+            <li th:each="file : ${recentFiles}">
+                <span th:text="${file.fileName}">File Name</span> - 
+                <span th:text="${file.uploadDate}">Upload Date</span>
+                <a th:href="@{/files/view/{id}(id=${file.id})}" class="btn btn-info btn-sm">View Details</a>
+                <a th:href="@{/files/open/{id}(id=${file.id})}" target="_blank" class="btn btn-info btn-sm">View</a>
+                <a th:href="@{/files/download/{id}(id=${file.id})}" class="btn btn-info btn-sm">Download</a>
+            </li>
+        </ul>
+
+        <div class="mt-4">
+            <a href="/user/upload" class="btn btn-primary">Upload New File</a>
+            <a href="/search" class="btn btn-primary">Search Files</a>
+        </div>
+    </div>
+    <script src="/built/bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Roles - e-Dastavej</title>
+    <link rel="stylesheet" href="/built/bundle.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Assign Roles to User</h2>
+        <form th:action="@{/users/assign-roles/save}" method="post">
+            <input type="hidden" th:field="*{userId}" th:value="${user.id}">
+            <div class="form-group">
+                <label for="roles">Roles:</label>
+                <select multiple class="form-control" id="roles" name="roleIds">
+                    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </form>
+    </div>
+    <script src="/built/bundle.js"></script>
+</body>
+</html>

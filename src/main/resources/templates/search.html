@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Files - e-Dastavej</title>
+    <link rel="stylesheet" href="/built/bundle.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self';">
+</head>
+<body>
+    <div class="container">
+        <h2>Search Files</h2>
+        <form action="/search" method="get">
+            <div class="form-group">
+                <label for="fileName">File Name:</label>
+                <input type="text" class="form-control" id="fileName" name="fileName">
+            </div>
+            <div class="form-group">
+                <label for="description">File Description:</label>
+                <input type="text" class="form-control" id="description" name="description">
+            </div>
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select class="form-control" id="category" name="categoryId">
+                    <option value="">Select Category</option>
+                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subCategory">Sub Category:</label>
+                <select class="form-control" id="subCategory" name="subCategoryId">
+                    <option value="">Select Sub Category</option>
+                    <option th:each="subCategory : ${subCategories}" th:value="${subCategory.id}" th:text="${subCategory.name}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" class="form-control" id="startDate" name="startDate">
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" class="form-control" id="endDate" name="endDate">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <h3>Search Results</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>File Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Sub Category</th>
+                    <th>Upload Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="file : ${files}">
+                    <td th:text="${file.fileName}"></td>
+                    <td th:text="${file.description}"></td>
+                    <td th:text="${file.category.name}"></td>
+                    <td th:text="${file.subCategory.name}"></td>
+                    <td th:text="${file.uploadDate}"></td>
+                    <td>
+                        <a th:href="@{/files/view/{id}(id=${file.id})}" class="btn btn-info btn-sm">View Details</a>
+                        <a th:href="@{/files/open/{id}(id=${file.id})}" target="_blank" class="btn btn-info btn-sm">View</a>
+                        <a th:href="@{/files/download/{id}(id=${file.id})}" class="btn btn-info btn-sm">Download</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="/built/bundle.js"></script>
+</body>
+</html>
