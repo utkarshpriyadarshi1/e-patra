@@ -1,7 +1,7 @@
 # e-Dastavej
 
 ## Overview
-This project is a file management system built using Spring MVC. It allows users to upload, search, and manage files. The system supports different user roles like public, clerk, staff, assistant, etc.
+This project is a file management system built using Spring MVC. It allows users to upload, search, and manage files. The system supports different user roles like public, clerk, staff, assistant, manager, and admin with varying levels of security.
 
 ## Features
 - File upload
@@ -16,18 +16,6 @@ This project is a file management system built using Spring MVC. It allows users
 - [Contributing Guide](docs/CONTRIBUTING.md)
 - [Security Guidelines](docs/SECURITY.md)
 
-### Project Documents
-- [Project Proposal](doc/Project_Proposal.md)
-- [Architecture Design](doc/Architecture_Design.md)
-- [Contract Agreement](doc/Contract_Agreement.md)
-- [Cost Estimation on AWS Hosting](doc/Cost_Estimation_on_AWS_Hosting.md)
-- [Design System](doc/Design_System.md)
-- [Project Plan](doc/Project_Plan.md)
-- [Requirements Document](doc/Requirements_Document.md)
-- [Statement of Work (SOW)](doc/Statement_of_Work_(SOW).md)
-- [Design Document](doc/Design_Document.md)
-- [Project Closure Document](doc/Project_Closure_Document.md)
-
 ## Technologies Used
 - Spring MVC
 - JSP
@@ -38,9 +26,8 @@ This project is a file management system built using Spring MVC. It allows users
 - Webpack
 
 ## Getting Started
-
 ### Prerequisites
-- JDK 11 or higher
+- JDK 21 or higher
 - Apache Maven
 - PostgreSQL
 - Node.js and npm

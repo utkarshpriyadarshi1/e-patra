@@ -3,7 +3,7 @@
 This guide provides step-by-step instructions for setting up the e-Dastavej system on your local machine.
 
 ## Prerequisites
-- JDK 11 or higher
+- JDK 21 or higher
 - Apache Maven
 - PostgreSQL
 - Node.js and npm
