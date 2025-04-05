@@ -36,6 +36,16 @@ public class FileController {
     }
 
     @PostMapping("/upload")
+    public String uploadFile(@RequestParam String filePath) {
+        try {
+            return fileService.storeFile(filePath);
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+
+    @PostMapping("/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file,
                              @RequestParam("description") String description,
                              @RequestParam("category") String category,

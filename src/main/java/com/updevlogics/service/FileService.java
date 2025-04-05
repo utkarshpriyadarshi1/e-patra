@@ -15,6 +15,7 @@ import java.util.List;
 public class FileService {
     @Autowired
     private FileRepository fileRepository;
+    private final FileMetadataRepository fileMetadataRepository;
 
     public void saveFile(MultipartFile multipartFile, String description, String category, String subCategory) throws IOException {
         String fileName = multipartFile.getOriginalFilename();
@@ -46,4 +47,41 @@ public class FileService {
     public List<FileInfo> getLast10Files() {
         return fileRepository.getLast10Files();
     }
+
+    public String storeFile(String filePath) throws Exception {
+        Path source = Paths.get(filePath);
+        String fileType = Files.probeContentType(source);
+        String year = String.valueOf(Files.getLastModifiedTime(source).toInstant().atZone(java.time.ZoneId.systemDefault()).getYear());
+        String month = String.format("%02d", Files.getLastModifiedTime(source).toInstant().atZone(java.time.ZoneId.systemDefault()).getMonthValue());
+
+        String newPath = "organized/" + fileType + "/" + year + "/" + month + "/" + source.getFileName();
+        Path destination = Paths.get(newPath);
+
+        Files.createDirectories(destination.getParent());
+        Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+
+        String hash = generateFileHash(source);
+        Optional<FileMetadata> existingFile = fileMetadataRepository.findByHash(hash);
+        if (existingFile.isPresent()) {
+            Files.delete(destination); // Remove duplicate
+            return "Duplicate file detected and removed.";
+        }
+
+        FileMetadata metadata = new FileMetadata(null, filePath, newPath, fileType, year, month, Files.size(source), hash);
+        fileMetadataRepository.save(metadata);
+
+        return "File stored at: " + newPath;
+    }
+
+    private String generateFileHash(Path path) throws Exception {
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] fileBytes = Files.readAllBytes(path);
+        byte[] hash = digest.digest(fileBytes);
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : hash) {
+            hexString.append(String.format("%02x", b));
+        }
+        return hexString.toString();
+    }
+
 }

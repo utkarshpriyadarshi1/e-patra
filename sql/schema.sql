@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS files (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    file_name TEXT NOT NULL,
+    file_path TEXT NOT NULL,
+    file_type TEXT NOT NULL,
+    file_size INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS backups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    backup_path TEXT NOT NULL,
+    backup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS duplicates (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    original_file_id INTEGER NOT NULL,
+    duplicate_file_id INTEGER NOT NULL,
+    detected_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (original_file_id) REFERENCES files(id),
+    FOREIGN KEY (duplicate_file_id) REFERENCES files(id)
+);
+
+CREATE TABLE IF NOT EXISTS logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    log_level TEXT NOT NULL,
+    log_message TEXT NOT NULL,
+    log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
