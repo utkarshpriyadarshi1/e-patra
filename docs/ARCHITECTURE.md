@@ -211,3 +211,44 @@ The client GUI communicates with the backend via the following local loopback RE
 * **WebSocket Progress Tunnel**
   * **Protocol:** WebSocket (`ws://localhost:8080/progress`)
   * **Description:** Emits textual status events from the server during backup execution to keep the UI terminal updated dynamically.
+
+---
+
+## Build, Packaging, and Distribution Architecture
+
+e-Patra uses a multi-stage compilation flow to bundle the Java backend and the Rust-based Tauri frontend into a single standalone application:
+
+```
+┌──────────────────────────┐     ┌──────────────────────────┐
+│   Spring Boot Backend    │     │    React Web Client      │
+└────────────┬─────────────┘     └────────────┬─────────────┘
+             │ Maven clean package            │ npm run build
+             ▼                                ▼
+┌──────────────────────────┐     ┌──────────────────────────┐
+│  e-patra-1.0-SNAPSHOT.jar │     │      HTML/JS Assets      │
+└────────────┬─────────────┘     └────────────┬─────────────┘
+             │                                │
+             │   Bundled into Rust binary     │
+             ▼                                ▼
+┌───────────────────────────────────────────────────────────┐
+│                    Tauri Compiler                         │
+│   (Packages frontend assets & wraps service launching)    │
+└────────────────────────────┬──────────────────────────────┘
+                             ▼
+┌───────────────────────────────────────────────────────────┐
+│        OS-Specific Distribution Installer                 │
+│        (e.g., .msi for Windows, .dmg for macOS)           │
+└───────────────────────────────────────────────────────────┘
+```
+
+### 1. Build Restructuring (`packaging-builder/`)
+All build, clean, and developer certificate management files reside in the `packaging-builder/` directory:
+* **`build.js`**: Cross-platform Node.js script coordinating backend Maven compilation, version synchronization, and Tauri packaging.
+* **`clean.js`**: Cross-platform Node.js script removing target folders to free disk space.
+* **`setup-cert.ps1`**: Automated Windows self-signed certificate generation script for app signing during local desktop installer building.
+
+### 2. Supported Platforms and Architecture Targets
+The system utilizes Tauri to target native installers:
+* **Windows:** Compiles into `.msi` installers and standalone `.exe` binaries using WiX Toolset. Supports x86_64 and ARM64.
+* **macOS:** Compiles into `.app` and `.dmg` bundles. Supports Intel x86_64 and Apple Silicon (M1/M2/M3 ARM64).
+* **Linux:** Compiles into `.deb` packages and AppImage bundles. Supports x86_64 and ARM64.

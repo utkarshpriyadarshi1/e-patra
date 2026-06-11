@@ -3,8 +3,11 @@
 
 $ErrorActionPreference = "Stop"
 
+# Change to root directory of project relative to script location
+Set-Location "$PSScriptRoot\.."
+
 # 1. Create certs directory if not exists
-$certsDir = Join-Path $PSScriptRoot "certs"
+$certsDir = Join-Path (Get-Location) "certs"
 if (-not (Test-Path $certsDir)) {
     New-Item -ItemType Directory -Path $certsDir | Out-Null
     Write-Host "Created certs directory: $certsDir"
@@ -37,7 +40,7 @@ Export-PfxCertificate -Cert $cert -FilePath $pfxPath -Password $password | Out-N
 Write-Host "Successfully exported certificate PFX."
 
 # 5. Update tauri.conf.json
-$tauriConfPath = Join-Path $PSScriptRoot "frontend\src-tauri\tauri.conf.json"
+$tauriConfPath = Join-Path (Get-Location) "frontend\src-tauri\tauri.conf.json"
 if (Test-Path $tauriConfPath) {
     Write-Host "Updating tauri.conf.json with the certificate thumbprint..."
     $tauriConf = Get-Content -Raw -Path $tauriConfPath | ConvertFrom-Json
@@ -52,7 +55,6 @@ if (Test-Path $tauriConfPath) {
         $tauriConf.tauri.bundle.windows.timestampUrl = "http://timestamp.digicert.com"
         
         $jsonString = $tauriConf | ConvertTo-Json -Depth 100
-        # ConvertTo-Json might escape characters or format slightly differently, let's write it cleanly
         [System.IO.File]::WriteAllText($tauriConfPath, $jsonString)
         Write-Host "Successfully updated tauri.conf.json with windows code signing properties."
     } else {

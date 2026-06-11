@@ -31,6 +31,38 @@ Run `./dev.sh` from the project root.
 
 ---
 
+## Compiling and Packaging Production Builds
+
+When you are ready to compile or distribute the standalone production version of e-Patra:
+
+### Using the Cross-Platform Builder (Recommended)
+The cross-platform Node.js script coordinates the compiler processes identically across Windows, macOS, and Linux:
+1. Make sure JDK 17, Maven, Rust, and Node.js are installed.
+2. In the project root directory, run:
+   ```bash
+   node packaging-builder/build.js
+   ```
+
+### Using OS-Specific Batch/Shell Scripts
+Alternatively, you can run the root wrappers or execute the scripts directly:
+
+* **On Windows:**
+  * Run `.\build.bat` from the root directory.
+  * **Code Signing Note:** To package Tauri apps for Windows, code signing is required. Run the following command in PowerShell to automatically generate and register a local developer certificate:
+    ```powershell
+    PowerShell -ExecutionPolicy Bypass -File .\packaging-builder\setup-cert.ps1
+    ```
+* **On macOS/Linux:**
+  * Run `./build.sh` from the root directory.
+
+### Cleaning Up Build Files
+To free up local compile disk space:
+* **Cross-Platform:** Run `node packaging-builder/clean.js`
+* **Windows:** Run `.\clean.bat`
+* **macOS/Linux:** Run `./clean.sh`
+
+---
+
 ## Standard Workflows
 
 ### 1. Set Up Classifications (Category Master)
