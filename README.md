@@ -1,4 +1,4 @@
-# e-Patra - Local-First Document Organizer
+# e-Patra - Local-First Cross Platform File Organizer Desktop App
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform: Cross-Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](#supported-platforms--devices)
